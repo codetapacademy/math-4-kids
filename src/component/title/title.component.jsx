@@ -1,5 +1,5 @@
 import React from 'react'
 
-const Title = () => <div>Eu sunt titlu</div>
+const Title = () => <h1>Math made simple</h1>
 
 export { Title }
