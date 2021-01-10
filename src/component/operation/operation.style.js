@@ -9,6 +9,8 @@ export const StyledOperation = styled.div`
 export const StyledOperationType = styled.div`
   grid-column: 2/3;
   grid-row: 1/6;
+  font-size: 48px;
+  margin-top: -5px;
 `
 
 export const StyledOperationDelimiter = styled.div`
@@ -18,4 +20,10 @@ export const StyledOperationDelimiter = styled.div`
 
 export const StyledOperationNumber = styled.div`
   text-align: right;
+`
+
+export const StyledOperationDigit = styled.span`
+  color: ${({ color }) => color};
+  font-size: 48px;
+  letter-spacing: 7px;
 `
