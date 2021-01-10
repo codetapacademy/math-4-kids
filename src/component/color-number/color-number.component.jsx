@@ -8,7 +8,7 @@ const ColorNumber = ({ number }) => {
   return String(number)
     .split('')
     .reverse()
-    .map((m, cheie) => <StyledOperationDigit color={colorList[cheie]}>{m}</StyledOperationDigit>)
+    .map((m, cheie) => <StyledOperationDigit key={cheie} color={colorList[cheie]}>{m}</StyledOperationDigit>)
     .reverse()
 }
 

@@ -16,9 +16,9 @@ const Operation = () => {
       <OS.StyledOperationType>+</OS.StyledOperationType>
 
       {/* Here we display the numbers to be added, substracted, multiplied or divided */}
-      {randomNumberList.map(rn => (
-        <OS.StyledOperationNumber>
-          <ColorNumber number={rn} />
+      {randomNumberList.map((randomNumber, key) => (
+        <OS.StyledOperationNumber key={key}>
+          <ColorNumber number={randomNumber} />
         </OS.StyledOperationNumber>
       ))}
 
