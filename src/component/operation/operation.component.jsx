@@ -1,18 +1,8 @@
 import React from 'react'
-import { StyledOperation, StyledOperationDelimiter, StyledOperationDigit, StyledOperationNumber, StyledOperationType } from './operation.style'
+import * as OS from './operation.style'
 
-const getRandom = (numberOfDigits) => Math.floor(Math.random() * Math.pow(10, numberOfDigits))
-
-const colorList = ['#36b6f5', '#882ff6', '#f99d06', '#f905db', '#35d460']
-
-const ColorNumber = ({ number }) => {
-  return String(number)
-    .split('')
-    .reverse()
-    .map((m, cheie) => <StyledOperationDigit color={colorList[cheie]}>{m}</StyledOperationDigit>)
-    .reverse()
-}
-
+import { getRandom } from '../../util'
+import { ColorNumber } from '../color-number'
 
 const Operation = () => {
   const randomNumberList = Array.from(
@@ -21,14 +11,23 @@ const Operation = () => {
   )
 
   return (
-    <StyledOperation>
-      <StyledOperationType>+</StyledOperationType>
-      {randomNumberList.map(rn => <StyledOperationNumber>
-        <ColorNumber number={rn} />
-      </StyledOperationNumber>)}
-      <StyledOperationDelimiter />
-      <StyledOperationNumber>35</StyledOperationNumber>
-    </StyledOperation>
+    <OS.StyledOperation>
+      {/* This is the operation type, like: +, -, * or / */}
+      <OS.StyledOperationType>+</OS.StyledOperationType>
+
+      {/* Here we display the numbers to be added, substracted, multiplied or divided */}
+      {randomNumberList.map(rn => (
+        <OS.StyledOperationNumber>
+          <ColorNumber number={rn} />
+        </OS.StyledOperationNumber>
+      ))}
+
+      {/* This is a visual divider between the numbers and the operation result */}
+      <OS.StyledOperationDelimiter />
+
+      {/* This is a hardcoded result, until we change it to the real one */}
+      <OS.StyledOperationNumber>35</OS.StyledOperationNumber>
+    </OS.StyledOperation>
   )
 }
 
