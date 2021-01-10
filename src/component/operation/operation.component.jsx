@@ -4,10 +4,10 @@ import * as OS from './operation.style'
 import { getRandom } from '../../util'
 import { ColorNumber } from '../color-number'
 
-const Operation = () => {
+const Operation = ({ nod }) => {
   const randomNumberList = Array.from(
     { length: 5 },
-    () => getRandom(5)
+    () => getRandom(nod)
   )
 
   return (
