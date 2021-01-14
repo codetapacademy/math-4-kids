@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as OS from './operation.style'
 
-import { getRandom } from '../../util'
-import { ColorNumber } from '../color-number'
+import { getRandom, sum } from '../../util'
+import { Total } from './operation.altul'
 
 const Operation = ({ nod, nio }) => {
   const randomNumberList = Array.from(
     { length: nio },
     () => getRandom(nod)
   )
+  const total = sum(randomNumberList)
 
+  console.log(total)
   return (
     <OS.StyledOperation>
       {/* This is the operation type, like: +, -, * or / */}
@@ -17,8 +19,8 @@ const Operation = ({ nod, nio }) => {
 
       {/* Here we display the numbers to be added, substracted, multiplied or divided */}
       {randomNumberList.map((randomNumber, key) => (
-        <OS.StyledOperationNumber key={key}>
-          <ColorNumber number={randomNumber} />
+        <OS.StyledOperationNumber key={key} data-attr={randomNumber}>
+          {String(randomNumber).split('').reverse().map((x, incaUnul) => <OS.StyledOperationSpan key={incaUnul}>{x}</OS.StyledOperationSpan>)}
         </OS.StyledOperationNumber>
       ))}
 
@@ -26,7 +28,13 @@ const Operation = ({ nod, nio }) => {
       <OS.StyledOperationDelimiter />
 
       {/* This is a hardcoded result, until we change it to the real one */}
-      <OS.StyledOperationNumber>35</OS.StyledOperationNumber>
+      <Total total={total} />
+      {/* <OS.StyledOperationNumber>{String(total).split('').reverse().map((x, cheita) => <OS.StyledOperationSpan>
+        <OS.StyledOperationInput onChange={e => handleChange(e, cheita)} type="text"/>
+      </OS.StyledOperationSpan>)}</OS.StyledOperationNumber> */}
+      <OS.StyledOperationDelimiter />
+      <OS.StyledOperationNumber>{String(total).split('').reverse().map((x, sibmstsb) => <OS.StyledOperationSpan key={sibmstsb}>{x}</OS.StyledOperationSpan>)}</OS.StyledOperationNumber>
+      <OS.StyledOperationDelimiter />
     </OS.StyledOperation>
   )
 }

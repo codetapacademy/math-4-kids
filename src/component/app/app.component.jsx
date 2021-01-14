@@ -10,9 +10,9 @@ const Math4Kids = () => {
   return (
     <div>
       <Title />
-      <Slider
+      {/* <Slider
         min={1}
-        max={5}
+        max={6}
         value={numberOfDigits}
         change={modifyNumberOfDigits}
       />
@@ -21,7 +21,7 @@ const Math4Kids = () => {
         max={7}
         value={numbersInOperation}
         change={modifyNumbersInOperation}
-      />
+      /> */}
       <Operation
         nod={numberOfDigits}
         nio={numbersInOperation}
