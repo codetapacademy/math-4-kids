@@ -1,15 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as OS from './operation.style'
 
 import { getRandom, sum } from '../../util'
 import { Total } from './operation.altul'
 
 const Operation = ({ nod, nio }) => {
-  const randomNumberList = Array.from(
+  const [randomNumberList, setRandomNumberList] = useState([])
+  const total = sum(randomNumberList)
+  
+  const getRandomNumberList = () => setRandomNumberList(Array.from(
     { length: nio },
     () => getRandom(nod)
-  )
-  const total = sum(randomNumberList)
+  ))
+
+  useEffect(() => {
+    getRandomNumberList()
+  }, [])
 
   console.log(total)
   return (
@@ -28,13 +34,13 @@ const Operation = ({ nod, nio }) => {
       <OS.StyledOperationDelimiter />
 
       {/* This is a hardcoded result, until we change it to the real one */}
-      <Total total={total} />
+      <Total total={total} reset={getRandomNumberList} />
       {/* <OS.StyledOperationNumber>{String(total).split('').reverse().map((x, cheita) => <OS.StyledOperationSpan>
         <OS.StyledOperationInput onChange={e => handleChange(e, cheita)} type="text"/>
       </OS.StyledOperationSpan>)}</OS.StyledOperationNumber> */}
       <OS.StyledOperationDelimiter />
-      <OS.StyledOperationNumber>{String(total).split('').reverse().map((x, sibmstsb) => <OS.StyledOperationSpan key={sibmstsb}>{x}</OS.StyledOperationSpan>)}</OS.StyledOperationNumber>
-      <OS.StyledOperationDelimiter />
+      {/* <OS.StyledOperationNumber>{String(total).split('').reverse().map((x, sibmstsb) => <OS.StyledOperationSpan key={sibmstsb}>{x}</OS.StyledOperationSpan>)}</OS.StyledOperationNumber>
+      <OS.StyledOperationDelimiter /> */}
     </OS.StyledOperation>
   )
 }
