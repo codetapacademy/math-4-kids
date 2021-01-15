@@ -38,9 +38,7 @@ const Total = ({ total, reset }) => {
   }
 
   return (
-    <div style={{
-      backgroundColor: total === scris ? 'green' : 'red'
-    }}>
+    <div >
       <OS.StyledOperationNumber>{String(total).split('').reverse().map((x, cheita) => (
         <OS.StyledOperationSpan key={cheita}>
           <OS.StyledOperationInput

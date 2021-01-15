@@ -7,7 +7,7 @@ export const StyledOperationInput = styled.input`
   border: 0;
   outline: 0;
   background-color: transparent;
-  color: #fff;
+  /* color: #fff; */
   font-weight: bold;
   text-align: center;
   font-size: 2.5rem;
