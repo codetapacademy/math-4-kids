@@ -1,22 +1,27 @@
 import React from 'react'
+import { Button, ButtonGroup, Typography } from '@material-ui/core'
 
-const Slider = ({ min, max, value, change }) => {
-  const handleChange = eveniment => {
-    const { value } = eveniment.target
-    change(value)
+const Slider = ({ list, label, change, value }) => {
+  const handleChange = v => {
+    // const { value } = eveniment.target
+    console.log(v)
+    change(v)
   }
   return (
     <div>
-      <span>min: {min}</span>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={value}
-        onChange={handleChange}
-      />
-      <span>max: {max}</span>
-      <div>value: {value}</div>
+      <Typography variant="h2" gutterBottom>{label}</Typography>
+      <ButtonGroup size="small">
+        {list.map((v, k) => (
+          <Button
+            key={k}
+            variant="contained"
+            color={k == value ? 'primary' : 'secondary'}
+            onClick={() => handleChange(k)}
+          >
+            {v}
+          </Button>
+        ))}
+      </ButtonGroup>
     </div>
   )
 }

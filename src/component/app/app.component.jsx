@@ -7,28 +7,28 @@ import { Slider } from '../slider'
 import { Title } from '../title'
 
 const Math4Kids = () => {
-  const [numberOfDigits, modifyNumberOfDigits] = useState(2)
-  const [numbersInOperation, modifyNumbersInOperation] = useState(2)
+  const [numberOfDigits, modifyNumberOfDigits] = useState(1)
+  const [numbersInOperation, modifyNumbersInOperation] = useState(0)
   return (
     <div>
       <Title />
+      <Operation
+        nod={numberOfDigits + 1}
+        nio={numbersInOperation + 2}
+      />
       <Slider
-        min={1}
-        max={6}
         value={numberOfDigits}
+        list={['starter', 'easy', 'junior', 'normal', 'pro', 'expert', 'guru']}
+        label="Difficulty"
         change={modifyNumberOfDigits}
       />
       <Slider
-        min={2}
-        max={3}
         value={numbersInOperation}
+        list={['x1', 'x2']}
+        label="Bonus Multiplier"
         change={modifyNumbersInOperation}
       />
-      <Operation
-        nod={numberOfDigits}
-        nio={numbersInOperation}
-      />
-      <ToastContainer
+      {/* <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -38,7 +38,7 @@ const Math4Kids = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-      />
+      /> */}
     </div>
   )
 }
