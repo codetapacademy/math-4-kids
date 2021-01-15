@@ -19,6 +19,19 @@ const Total = ({ total, reset }) => {
       e,
       e.keyCode < 58 && e.keyCode > 47 ? e.keyCode : "-0-"
     );
+    if (['ArrowRight', 'ArrowDown'].includes(e.key)) {
+      // move focus to the right
+      if (smartRef.current[cheitaMea - 1]) {
+        smartRef.current[cheitaMea - 1].focus()
+      }
+    }
+    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) {
+      // move focus to the left
+      if (smartRef.current[cheitaMea + 1]) {
+        smartRef.current[cheitaMea + 1].focus()
+      }
+    }
+
     if (e.keyCode < 58 && e.keyCode > 47) {
       setInputValueList({
         ...inputValueList,
