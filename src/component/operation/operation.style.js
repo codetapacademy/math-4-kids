@@ -1,5 +1,13 @@
-import { IconButton } from '@material-ui/core'
+import { Button, IconButton } from '@material-ui/core'
 import styled from 'styled-components'
+
+export const StyledOperationCheckScoreButton = styled(Button)`
+  && {
+    background-color: #35d460;
+    font-size: 2.5rem;
+    margin: 1.25rem;
+  }
+`
 
 export const StyledOperationCloseButton = styled(IconButton)`
   && {

@@ -34,7 +34,7 @@ const Operation = ({ nod, nio }) => {
       <OS.StyledOperationDelimiter />
 
       {/* This is a hardcoded result, until we change it to the real one */}
-      <Total total={total} reset={getRandomNumberList} />
+      <Total total={total} reset={getRandomNumberList} nod={nod} nio={nio} />
       {/* <OS.StyledOperationNumber>{String(total).split('').reverse().map((x, cheita) => <OS.StyledOperationSpan>
         <OS.StyledOperationInput onChange={e => handleChange(e, cheita)} type="text"/>
       </OS.StyledOperationSpan>)}</OS.StyledOperationNumber> */}

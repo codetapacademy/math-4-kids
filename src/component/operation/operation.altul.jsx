@@ -1,14 +1,15 @@
-import { Button, Dialog, DialogContent, DialogTitle, IconButton, Typography } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@material-ui/core";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { sum } from "../../util";
 import * as OS from "./operation.style";
 import { Close as CloseIcon } from '@material-ui/icons'
 
-const Total = ({ total, reset }) => {
+const Total = ({ total, reset, nod, nio }) => {
   const [inputValueList, setInputValueList] = useState({});
   const [open, setOpen] = useState(false);
   const smartRef = useRef([]);
+  const points = nod * (nio - 1) * 10
 
   const handleChange = (e, cheitaMea) => {
     const { value, keyCode } = e.target;
@@ -42,6 +43,9 @@ const Total = ({ total, reset }) => {
         smartRef.current[cheitaMea + 1].focus();
       }
     }
+    if (e.key === 'Enter') {
+      checkResult(e)
+    }
   };
   const scris = sum(
     Object.keys(inputValueList)
@@ -51,19 +55,15 @@ const Total = ({ total, reset }) => {
   );
 
   const checkResult = (e) => {
-    e.preventDefault();
-    console.log(total === scris);
-    // total === scris
-    //   ? toast.success(`Correct, you got points!`)
-    //   : toast.error(`Wrong answer, try again!`);
-    console.log("We have access to the value of total: ", total, scris);
-    console.log("I will return true or false at some point in the near future");
     setOpen(true)
+    e.preventDefault();
   };
 
-  const selectPrize = type => {
+  const selectPrize = (type, amount) => {
     // talk to redux store to update time or cash
     console.log(`You choose: ${type}`)
+    const current = +window.localStorage.getItem(type)
+    window.localStorage.setItem(type, current + amount)
     handleClose()
   };
 
@@ -89,41 +89,48 @@ const Total = ({ total, reset }) => {
             <CloseIcon />
           </OS.StyledOperationCloseButton>
         </DialogTitle>
-        <DialogContent dividers>
-          {total === scris && (
-            <>
-              <p>The correct answer is:</p>
-              <h1>{total}</h1>
+        {total === scris && (
+          <>
+            <DialogContent dividers>
+              <p>You've earned {points} points.</p>
               <p>Pick your prize:</p>
+            </DialogContent>
+            <DialogActions>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => selectPrize('time')}
+                onClick={() => selectPrize('time', 2.5 * points)}
+                autoFocus
               >
-                Get 1min 20 seconds
+                Get {2.5 * points} seconds
               </Button>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => selectPrize('cash')}
+                onClick={() => selectPrize('cash', points / 10)}
               >
-                Get 2 penny
+                Get {points / 10} penny
               </Button>
-            </>
-          )}
-          {total !== scris && (
-            <>
+            </DialogActions>
+          </>
+        )}
+        {total !== scris && (
+          <>
+            <DialogContent dividers>
               <p>Unfortunately the correct answer is <b>{total}</b> and you input <b>{scris}</b>.</p>
+            </DialogContent>
+            <DialogActions>
               <Button
                 variant="contained"
                 color="primary"
                 onClick={handleClose}
+                autoFocus
               >
                 Try again to win your prize
               </Button>
-            </>
-          )}
-        </DialogContent>
+            </DialogActions>
+          </>
+        )}
       </Dialog>
       <OS.StyledOperationNumber>
         {String(total)
@@ -141,7 +148,12 @@ const Total = ({ total, reset }) => {
             </OS.StyledOperationSpan>
           ))}
       </OS.StyledOperationNumber>
-      <button onClick={checkResult}>Check result</button>
+      <OS.StyledOperationCheckScoreButton
+        onClick={checkResult}
+        variant="contained"
+      >
+        Check result
+      </OS.StyledOperationCheckScoreButton>
     </form>
   );
 };

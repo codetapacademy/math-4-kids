@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Operation } from '../operation'
 import { Slider } from '../slider'
 import { Title } from '../title'
+import { Status } from '../status'
 
 const Math4Kids = () => {
   const [numberOfDigits, modifyNumberOfDigits] = useState(1)
@@ -12,6 +13,7 @@ const Math4Kids = () => {
   return (
     <div>
       <Title />
+      <Status />
       <Operation
         nod={numberOfDigits + 1}
         nio={numbersInOperation + 2}
@@ -19,7 +21,7 @@ const Math4Kids = () => {
       <Slider
         value={numberOfDigits}
         list={['starter', 'easy', 'junior', 'normal', 'pro', 'expert', 'guru']}
-        label="Difficulty"
+        label={`Difficulty (${10 * (numberOfDigits + 1)} points)`}
         change={modifyNumberOfDigits}
       />
       <Slider
