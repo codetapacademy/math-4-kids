@@ -1,4 +1,13 @@
+import { IconButton } from '@material-ui/core'
 import styled from 'styled-components'
+
+export const StyledOperationCloseButton = styled(IconButton)`
+  && {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+  }
+`
 
 export const StyledOperationInput = styled.input`
   width: 32px;
