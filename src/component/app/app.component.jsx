@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { ToastContainer } from 'react-toastify'
+// import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Operation } from '../operation'
-import { Slider } from '../slider'
+import { Selector } from '../selector'
 import { Title } from '../title'
 import { Status } from '../status'
 
@@ -14,21 +14,24 @@ const Math4Kids = () => {
     <div>
       <Title />
       <Status />
+      <h1>Earn  {10 * (numberOfDigits + 1) * (numbersInOperation + 1)} points to spend.</h1>
       <Operation
         nod={numberOfDigits + 1}
         nio={numbersInOperation + 2}
       />
-      <Slider
+      <Selector
         value={numberOfDigits}
-        list={['starter', 'easy', 'junior', 'normal', 'pro', 'expert', 'guru']}
-        label={`Difficulty (${10 * (numberOfDigits + 1)} points)`}
+        list={['starter x1', 'easy x2', 'junior x3', 'normal x4', 'pro x5', 'expert x6', 'guru x7']}
+        label="Difficulty"
         change={modifyNumberOfDigits}
+        orientation="vertical"
       />
-      <Slider
+      <Selector
         value={numbersInOperation}
         list={['x1', 'x2']}
         label="Bonus Multiplier"
         change={modifyNumbersInOperation}
+        orientation="horizontal"
       />
       {/* <ToastContainer
         position="top-right"
