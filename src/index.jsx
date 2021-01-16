@@ -1,10 +1,18 @@
-import React from 'react'
-import { render } from 'react-dom'
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
 
-import './index.css'
-import { Math4Kids } from './component/app'
+import "./index.css";
+import { Math4Kids } from "./component/app";
+import configureStore from "./store";
 
-const app = <Math4Kids />
-const here = document.querySelector('#here')
+const store = configureStore()
 
-render(app, here)
+const app = (
+  <Provider store={store}>
+    <Math4Kids />
+  </Provider>
+);
+const here = document.querySelector("#here");
+
+render(app, here);
