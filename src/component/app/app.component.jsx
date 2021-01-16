@@ -8,6 +8,7 @@ import { Title } from '../title'
 import { Status } from '../status'
 import { ActionButtonList } from '../action-button'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core'
+import { Field } from 'formik'
 
 const Math4Kids = () => {
   const [selected, setSelected] = useState('')
@@ -37,7 +38,21 @@ const Math4Kids = () => {
           <Typography>{title[selected]}</Typography>
         </DialogTitle>
         <DialogContent dividers>
-          <p>salut</p>
+          {selected === 'parent' && (
+            <Formik
+              initialValues={{ firstName: '', lastName: '', age: '', sex: '' }}
+            >
+              <Form>
+                {({ isValid }) => (
+                  <div>
+                    <Field
+                      name="firstName"
+                    />
+                  </div>
+                )}
+              </Form>
+            </Formik>
+          )}
         </DialogContent>
         <DialogActions>
           <Button>Save</Button>
