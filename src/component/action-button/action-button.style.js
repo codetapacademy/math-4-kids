@@ -1,4 +1,4 @@
-import { AppBar, Fab, IconButton } from '@material-ui/core';
+import { AppBar, Button, Fab, IconButton } from '@material-ui/core';
 import styled from 'styled-components'
 
 export const StyledActionAppBar = styled(AppBar)`
@@ -8,7 +8,11 @@ export const StyledActionAppBar = styled(AppBar)`
   }
 `
 
-export const StyledActionButtonIconButton = styled(Fab)`
+export const StyledActionButtonIconButton = styled(Button)`
+  /* width: 40px; */
+  && {
+    /* color: white; */
+  }
 `
 
 export const StyledActionButtonWrapper = styled.div`

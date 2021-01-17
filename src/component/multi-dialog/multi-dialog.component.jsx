@@ -4,11 +4,22 @@ import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { Selector } from '../selector'
 import * as UserAction from '../../store/user/user.action'
 import * as MDS from './multi-dialog.style'
 
 const MultiDialog = ({ selected, setSelected }) => {
-  const [user, selectedChild] = useSelector(({ user }) => ([ user, user.selected ]))
+  const [
+    user,
+    selectedChild,
+    level,
+    bonus,
+  ] = useSelector(({ user }) => ([
+    user,
+    user.selected,
+    user.children[user.selected].settings.level,
+    user.children[user.selected].settings.bonus,
+  ]))
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -46,6 +57,13 @@ const MultiDialog = ({ selected, setSelected }) => {
       ? { ...user.children[selectedChild].profile, formName: user.children[selectedChild].formName}
       : {}
 
+  const handleSelectorChange = (value, type) => {
+    console.log(value, type)
+    dispatch(UserAction.updateChildSettingsAction({
+      type,
+      value
+    }))
+  }
 console.log(initialValues)
   return (
     <Dialog onClose={handleClose} open={!!selected}>
@@ -59,6 +77,24 @@ console.log(initialValues)
               <Typography>{title[selected]}</Typography>
             </DialogTitle>
             <DialogContent dividers>
+              {selected === 'level' && (
+                <Selector
+                  value={level}
+                  list={['starter x1', 'easy x2', 'junior x3', 'normal x4', 'pro x5', 'expert x6', 'guru x7']}
+                  label="Level"
+                  change={e => handleSelectorChange(e, 'level')}
+                  orientation="vertical"
+                />
+              )}
+              {selected === 'bonus' && (
+                <Selector
+                  value={bonus}
+                  list={['x1', 'x2']}
+                  label="Bonus Multiplier"
+                  change={e => handleSelectorChange(e, 'bonus')}
+                  orientation="horizontal"
+                />
+              )}
               {selected === 'parent' && (
                 <>
                   <MDS.StyledBox margin={1}>

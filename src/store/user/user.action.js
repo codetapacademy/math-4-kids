@@ -14,3 +14,8 @@ export const updateChildProfileAction = profile => ({
   type: constant.UPDATE_CHILD_PROFILE,
   payload: { profile }
 })
+
+export const updateChildSettingsAction = settings => ({
+  type: constant.UPDATE_CHILD_SETTINGS,
+  payload: { settings }
+})

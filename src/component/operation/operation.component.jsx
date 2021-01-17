@@ -3,10 +3,15 @@ import * as OS from './operation.style'
 
 import { getRandom, sum } from '../../util'
 import { Total } from './operation.altul'
+import { useSelector } from 'react-redux'
 
-const Operation = ({ nod, nio }) => {
+const Operation = () => {
   const [randomNumberList, setRandomNumberList] = useState([])
   const total = sum(randomNumberList)
+  const [nod, nio] = useSelector(({ user }) => ([
+    user.children[user.selected].settings.level + 2,
+    user.children[user.selected].settings.bonus + 1,
+  ]))
   
   const getRandomNumberList = () => setRandomNumberList(Array.from(
     { length: nio },

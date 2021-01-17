@@ -7,7 +7,7 @@ import {
 } from "@material-ui/icons";
 import * as Action from '../../store/user/user.action'
 import { useDispatch, useSelector } from "react-redux";
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, ButtonGroup, IconButton, Toolbar, Typography } from "@material-ui/core";
 
 import * as ABS from "./action-button.style";
 
@@ -27,7 +27,7 @@ const ActionButtonList = ({ setModal }) => {
     setModal('child')
   }
   return (
-    <ABS.StyledActionAppBar position="fixed">
+    <ABS.StyledActionAppBar position="fixed" color="default">
       <Toolbar>
         <Box margin={1}>
           <ABS.StyledActionButtonIconButton
@@ -39,21 +39,23 @@ const ActionButtonList = ({ setModal }) => {
           <Typography align="center">Parent</Typography>
         </Box>
 
-        {children.map((child, cheie) => (
-          <Box margin={1}>
-            <ABS.StyledActionButtonIconButton
-              color={selectedChild === cheie ? 'primary' : 'secondary'}
-              onClick={() => handleChildSelection(cheie)}
-            >
-              <PersonIcon />
-            </ABS.StyledActionButtonIconButton>
-            <Typography align="center">{child.profile.firstName || 'child'}</Typography>
-          </Box>
-        ))}
+        <Box margin={1}>
+          <ButtonGroup>
+            {children.map((child, cheie) => (
+              <ABS.StyledActionButtonIconButton
+                color={selectedChild === cheie ? 'secondary' : 'default'}
+                onClick={() => handleChildSelection(cheie)}
+                variant="contained"
+              >
+                <span>{children[cheie].profile.firstName}</span>
+                <PersonIcon />
+              </ABS.StyledActionButtonIconButton>
+            ))}
+          </ButtonGroup>
+        </Box>
 
         <Box margin={1}>
           <ABS.StyledActionButtonIconButton
-            color="default"
             onClick={() => setModal('level')}
           >
             <SettingsIcon />
@@ -63,7 +65,6 @@ const ActionButtonList = ({ setModal }) => {
 
         <Box margin={1}>
           <ABS.StyledActionButtonIconButton
-            color="default"
             onClick={() => setModal('bonus')}
           >
             <EmojiEventsIcon />

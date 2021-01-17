@@ -16,7 +16,7 @@ const Selector = ({ list, label, change, value, orientation }) => {
           <Button
             key={k}
             variant="contained"
-            color={k == value ? 'primary' : 'secondary'}
+            color={k == value ? 'secondary' : 'primary'}
             onClick={() => handleChange(k)}
           >
             {v}

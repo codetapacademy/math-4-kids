@@ -52,7 +52,7 @@ export const initialState = {
     defaultChildProfile,
     defaultChildProfile,
   ],
-  selected: null,
+  selected: 0,
   ...localUser
 }
 
@@ -73,6 +73,20 @@ export const userReducer = (state = initialState, action) => {
         }
       }
 
+    case constant.UPDATE_CHILD_SETTINGS:
+      return {
+        ...state,
+        children: state.children.map((child, cheie) => cheie === state.selected
+          ? ({
+            ...child,
+            settings: {
+              ...child.settings,
+              [action.payload.settings.type]: action.payload.settings.value
+            }
+          })
+          : child
+        )
+      }
     case constant.UPDATE_CHILD_PROFILE:
       return {
         ...state,
