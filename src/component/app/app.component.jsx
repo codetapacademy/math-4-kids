@@ -12,7 +12,7 @@ import { MultiDialog } from '../multi-dialog'
 const Math4Kids = () => {
   const [numberOfDigits, modifyNumberOfDigits] = useState(1)
   const [numbersInOperation, modifyNumbersInOperation] = useState(0)
-  const [selected, setSelected] = useState('')
+  const [selectedModal, setSelectedModal] = useState('')
 
   return (
     <div>
@@ -37,8 +37,8 @@ const Math4Kids = () => {
         change={modifyNumbersInOperation}
         orientation="horizontal"
       />
-      <MultiDialog selected={selected} setSelected={setSelected} />
-      <ActionButtonList setModal={setSelected} />
+      <MultiDialog selected={selectedModal} setSelected={setSelectedModal} />
+      <ActionButtonList setModal={setSelectedModal} />
       {/* <ToastContainer
         position="top-right"
         autoClose={5000}

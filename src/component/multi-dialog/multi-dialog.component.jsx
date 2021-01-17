@@ -4,11 +4,11 @@ import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateParentProfileAction } from '../../store/user/user.action'
+import * as UserAction from '../../store/user/user.action'
 import * as MDS from './multi-dialog.style'
 
 const MultiDialog = ({ selected, setSelected }) => {
-  const [user, parent] = useSelector(({ user }) => ([ user, user.parent ]))
+  const [user, selectedChild] = useSelector(({ user }) => ([ user, user.selected ]))
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -22,22 +22,35 @@ const MultiDialog = ({ selected, setSelected }) => {
 
   const title = {
     parent: 'Parent Profile',
-    child: 'Child Profile'
+    child: 'Child Profile',
+    level: 'The higher the Better',
+    bonus: 'x1 or x2'
   }
 
   const onSubmit = values => {
     const { formName } = values
-    console.log(values, formName)
+    console.log(values)
+    console.log(formName)
     if (formName === 'parent') {
-      dispatch(updateParentProfileAction(values))
+      dispatch(UserAction.updateParentProfileAction(values))
+    }
+    if (formName === 'child') {
+      dispatch(UserAction.updateChildProfileAction(values))
     }
     setSelected('')
   }
 
+  const initialValues = selected === 'parent'
+    ? { ...user.parent.profile, formName: user.parent.formName}
+    : (selected === 'child')
+      ? { ...user.children[selectedChild].profile, formName: user.children[selectedChild].formName}
+      : {}
+
+console.log(initialValues)
   return (
     <Dialog onClose={handleClose} open={!!selected}>
       <Formik
-        initialValues={parent}
+        initialValues={initialValues}
         onSubmit={onSubmit}
       >
         {({ isValid, values, handleBlur, handleChange }) => (
@@ -100,16 +113,77 @@ const MultiDialog = ({ selected, setSelected }) => {
                       }}
                       component={TextField}
                     >
-                      {[...Array(4).keys()].map(value => (
+                      {[...Array(99).keys()].map(value => (
                         <MenuItem
                           key={value + 18}
                           value={value + 18}
-                          selected={parent.age === value + 18}
+                          selected={user.parent.profile.age === value + 18}
                         >
                           {value + 18}
                         </MenuItem>
                       ))}
                     </Field>
+                  </MDS.StyledRadioGroup>
+                </>
+              )}
+              {selected === 'child' && (
+                <>
+                  <MDS.StyledBox margin={1}>
+                    <Box margin={1} style={{alignSelf: 'end'}}>
+                      <Field
+                        
+                        name="firstName"
+                        id="firstName"
+                        type="text"
+                        label="First Name"
+                        component={TextField}
+                        disabled={false}
+                      />
+                    </Box>
+                    <Field
+                      name="age"
+                      id="age"
+                      type="text"
+                      label="Age"
+                      select
+                      variant="standard"
+                      margin="normal"
+                      disabled={false}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      component={TextField}
+                    >
+                      {[...Array(18).keys()].map(value => (
+                        <MenuItem
+                          key={value + 2}
+                          value={value + 2}
+                          selected={user.parent.profile.age === value + 2}
+                        >
+                          {value + 2}
+                        </MenuItem>
+                      ))}
+                    </Field>
+                  </MDS.StyledBox>
+
+                  <MDS.StyledRadioGroup
+                    name="sex"
+                    value={values.sex}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    row
+                  >
+                    <MDS.StyledFormLabel>Sex</MDS.StyledFormLabel>
+                    <FormControlLabel
+                      value="male"
+                      label="Male"
+                      control={<Radio  />}
+                    />
+                    <FormControlLabel
+                      value="female"
+                      label="Female"
+                      control={<Radio  />}
+                    />
                   </MDS.StyledRadioGroup>
                 </>
               )}

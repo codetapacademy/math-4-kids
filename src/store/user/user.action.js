@@ -1,6 +1,16 @@
 import * as constant from './user.constant'
 
-export const updateParentProfileAction = parent => ({
+export const setSelectedChildAction = id => ({
+  type: constant.SET_SELECTED_CHILD_ID,
+  payload: { id }
+})
+
+export const updateParentProfileAction = profile => ({
   type: constant.UPDATE_PARENT_PROFILE,
-  payload: { parent }
+  payload: { profile }
+})
+
+export const updateChildProfileAction = profile => ({
+  type: constant.UPDATE_CHILD_PROFILE,
+  payload: { profile }
 })
