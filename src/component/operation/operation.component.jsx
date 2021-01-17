@@ -9,8 +9,8 @@ const Operation = () => {
   const [randomNumberList, setRandomNumberList] = useState([])
   const total = sum(randomNumberList)
   const [nod, nio] = useSelector(({ user }) => ([
-    user.children[user.selected].settings.level + 2,
-    user.children[user.selected].settings.bonus + 1,
+    user.children[user.selected].settings.level + 1,
+    user.children[user.selected].settings.bonus + 2,
   ]))
   
   const getRandomNumberList = () => setRandomNumberList(Array.from(
@@ -20,7 +20,7 @@ const Operation = () => {
 
   useEffect(() => {
     getRandomNumberList()
-  }, [])
+  }, [nod, nio])
 
   console.log(total)
   return (

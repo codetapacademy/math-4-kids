@@ -62,8 +62,6 @@ const Total = ({ total, reset, nod, nio }) => {
   const selectPrize = (type, amount) => {
     // talk to redux store to update time or cash
     console.log(`You choose: ${type}`)
-    const current = +window.localStorage.getItem(type)
-    window.localStorage.setItem(type, current + amount)
     handleClose()
   };
 
