@@ -7,22 +7,12 @@ import { Selector } from '../selector'
 import { Title } from '../title'
 import { Status } from '../status'
 import { ActionButtonList } from '../action-button'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core'
-import { Field } from 'formik'
+import { MultiDialog } from '../multi-dialog'
 
 const Math4Kids = () => {
-  const [selected, setSelected] = useState('')
   const [numberOfDigits, modifyNumberOfDigits] = useState(1)
   const [numbersInOperation, modifyNumbersInOperation] = useState(0)
-  
-  const handleClose = () => {
-    setSelected('')
-  }
-
-  const title = {
-    parent: 'Parent Profile',
-    child: 'Child Profile'
-  }
+  const [selected, setSelected] = useState('')
 
   return (
     <div>
@@ -33,31 +23,6 @@ const Math4Kids = () => {
         nod={numberOfDigits + 1}
         nio={numbersInOperation + 2}
       />
-      <Dialog onClose={handleClose} open={!!selected}>
-        <DialogTitle>
-          <Typography>{title[selected]}</Typography>
-        </DialogTitle>
-        <DialogContent dividers>
-          {selected === 'parent' && (
-            <Formik
-              initialValues={{ firstName: '', lastName: '', age: '', sex: '' }}
-            >
-              <Form>
-                {({ isValid }) => (
-                  <div>
-                    <Field
-                      name="firstName"
-                    />
-                  </div>
-                )}
-              </Form>
-            </Formik>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button>Save</Button>
-        </DialogActions>
-      </Dialog>
       <Selector
         value={numberOfDigits}
         list={['starter x1', 'easy x2', 'junior x3', 'normal x4', 'pro x5', 'expert x6', 'guru x7']}
@@ -72,6 +37,7 @@ const Math4Kids = () => {
         change={modifyNumbersInOperation}
         orientation="horizontal"
       />
+      <MultiDialog selected={selected} setSelected={setSelected} />
       <ActionButtonList setModal={setSelected} />
       {/* <ToastContainer
         position="top-right"
