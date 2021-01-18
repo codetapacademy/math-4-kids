@@ -9,7 +9,7 @@ const Status = () => {
     user.children[user.selected].earnings.time,
     user.children[user.selected].earnings.cash,
   ])
-  console.log(time, cash)
+
   const currentTime = time.reduce((a, c) => (c.d + 1) * (c.b + 1) * 25 + a, 0)
   const currentCash = cash.reduce((a, c) => (c.d + 1) * (c.b + 1) + a, 0)
 

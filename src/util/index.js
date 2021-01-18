@@ -1,6 +1,6 @@
-import { getRandom, sum } from './math'
+import { getRandom, doOperation } from './math'
 
 export {
   getRandom,
-  sum
+  doOperation,
 }

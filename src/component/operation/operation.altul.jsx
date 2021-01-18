@@ -1,28 +1,22 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@material-ui/core";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { sum } from "../../util";
+import { doOperation } from "../../util";
 import * as OS from "./operation.style";
 import { Close as CloseIcon } from '@material-ui/icons'
 import { updateChildCashOrTimeAction } from "../../store/user/user.action";
 import { useDispatch } from "react-redux";
 
-const Total = ({ total, reset, nod, nio }) => {
+const Total = ({ total, reset, nod, nio, operation }) => {
   const [inputValueList, setInputValueList] = useState({});
   const [open, setOpen] = useState(false);
   const smartRef = useRef([]);
   const points = nod * (nio - 1) * 10
   const dispatch = useDispatch()
+  const firstCharacter = String(total)[0]
 
   const handleChange = (e, cheitaMea) => {
     const { value, keyCode } = e.target;
-    console.log(
-      value,
-      cheitaMea,
-      keyCode,
-      e,
-      e.keyCode < 58 && e.keyCode > 47 ? e.keyCode : "-0-"
-    );
     if (['ArrowRight', 'ArrowDown'].includes(e.key)) {
       // move focus to the right
       if (smartRef.current[cheitaMea - 1]) {
@@ -50,11 +44,12 @@ const Total = ({ total, reset, nod, nio }) => {
       checkResult(e)
     }
   };
-  const scris = sum(
+  const scris = (firstCharacter === '-' ? -1 : 1) * doOperation(
     Object.keys(inputValueList)
       .map((ol) => +ol)
       .sort((a, b) => b - a)
-      .map((oat) => Math.pow(10, oat) * inputValueList[oat])
+      .map((oat) => Math.pow(10, oat) * inputValueList[oat]),
+    '+',
   );
 
   const checkResult = (e) => {
@@ -70,7 +65,7 @@ const Total = ({ total, reset, nod, nio }) => {
   };
 
   const handleClose = () => {
-    reset();
+    reset(operation);
     setInputValueList(
       Object.keys(inputValueList).reduce((a, c) => ({ ...a, [c]: 0 }), {})
     );
@@ -140,7 +135,7 @@ const Total = ({ total, reset, nod, nio }) => {
         {String(total)
           .split("")
           .reverse()
-          .map((x, cheita) => (
+          .map((x, cheita, arr) => (
             <OS.StyledOperationSpan key={cheita}>
               <OS.StyledOperationInput
                 autoFocus={cheita === 0}
@@ -148,7 +143,7 @@ const Total = ({ total, reset, nod, nio }) => {
                 onChange={() => {}}
                 type="text"
                 ref={(el) => (smartRef.current[cheita] = el)}
-                value={inputValueList[cheita] || 0}
+                value={cheita + 1 === arr.length && firstCharacter === '-' ? '-': (inputValueList[cheita] || 0)}
               />
             </OS.StyledOperationSpan>
           ))}

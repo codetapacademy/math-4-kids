@@ -46,6 +46,7 @@ const ActionButtonList = ({ setModal }) => {
                 color={selectedChild === cheie ? 'secondary' : 'default'}
                 onClick={() => handleChildSelection(cheie)}
                 variant="contained"
+                key={cheie}
               >
                 <span>{children[cheie].profile.firstName}</span>
                 <PersonIcon />

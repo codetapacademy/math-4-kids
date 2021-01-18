@@ -24,7 +24,6 @@ const MultiDialog = ({ selected, setSelected }) => {
 
   useEffect(() => {
     window.localStorage.setItem('user', JSON.stringify(user))
-    console.log('update local storage')
   }, [user])
 
   const handleClose = () => {
