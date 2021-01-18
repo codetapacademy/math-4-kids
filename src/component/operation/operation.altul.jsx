@@ -74,8 +74,10 @@ const Total = ({ total, reset, nod, nio }) => {
     setInputValueList(
       Object.keys(inputValueList).reduce((a, c) => ({ ...a, [c]: 0 }), {})
     );
-    smartRef.current[0].focus();
     setOpen(false);
+    setTimeout(() => {
+      smartRef.current[0].focus();
+    }, 250)
   };
 
   return (
