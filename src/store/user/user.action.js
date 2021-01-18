@@ -1,5 +1,10 @@
 import * as constant from './user.constant'
 
+export const updateChildCashOrTimeAction = type => ({
+  type: constant.UPDATE_CHILD_CASH_OR_TIME,
+  payload: { type }
+})
+
 export const setSelectedChildAction = id => ({
   type: constant.SET_SELECTED_CHILD_ID,
   payload: { id }

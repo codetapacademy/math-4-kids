@@ -9,8 +9,9 @@ const Status = () => {
     user.children[user.selected].earnings.time,
     user.children[user.selected].earnings.cash,
   ])
-  const currentTime = time.reduce((a, c) => c.d * c.b * 2.5 + a, 0)
-  const currentCash = time.reduce((a, c) => c.d * c.b / 10 + a, 0)
+  console.log(time, cash)
+  const currentTime = time.reduce((a, c) => (c.d + 1) * (c.b + 1) * 25 + a, 0)
+  const currentCash = cash.reduce((a, c) => (c.d + 1) * (c.b + 1) + a, 0)
 
   return (
     <div>

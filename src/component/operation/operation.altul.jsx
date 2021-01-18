@@ -4,12 +4,15 @@ import { toast } from "react-toastify";
 import { sum } from "../../util";
 import * as OS from "./operation.style";
 import { Close as CloseIcon } from '@material-ui/icons'
+import { updateChildCashOrTimeAction } from "../../store/user/user.action";
+import { useDispatch } from "react-redux";
 
 const Total = ({ total, reset, nod, nio }) => {
   const [inputValueList, setInputValueList] = useState({});
   const [open, setOpen] = useState(false);
   const smartRef = useRef([]);
   const points = nod * (nio - 1) * 10
+  const dispatch = useDispatch()
 
   const handleChange = (e, cheitaMea) => {
     const { value, keyCode } = e.target;
@@ -62,6 +65,7 @@ const Total = ({ total, reset, nod, nio }) => {
   const selectPrize = (type, amount) => {
     // talk to redux store to update time or cash
     console.log(`You choose: ${type}`)
+    dispatch(updateChildCashOrTimeAction(type))
     handleClose()
   };
 
@@ -139,6 +143,7 @@ const Total = ({ total, reset, nod, nio }) => {
               <OS.StyledOperationInput
                 autoFocus={cheita === 0}
                 onKeyDown={(e) => handleChange(e, cheita)}
+                onChange={() => {}}
                 type="text"
                 ref={(el) => (smartRef.current[cheita] = el)}
                 value={inputValueList[cheita] || 0}

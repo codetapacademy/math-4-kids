@@ -73,6 +73,28 @@ export const userReducer = (state = initialState, action) => {
         }
       }
 
+    case constant.UPDATE_CHILD_CASH_OR_TIME:
+      return {
+        ...state,
+        children: state.children.map((child, cheie) => cheie === state.selected
+          ? ({
+            ...child,
+            earnings: {
+              ...child.earnings,
+              [action.payload.type]: [
+                ...child.earnings[action.payload.type],
+                {
+                  d: child.settings.level,
+                  b: child.settings.bonus,
+                  date: Date.now()
+                }
+              ]
+            }
+          })
+          : child
+        )
+      }
+
     case constant.UPDATE_CHILD_SETTINGS:
       return {
         ...state,
